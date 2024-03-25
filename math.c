@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include "asmbl.h"
+#include "misc.h"
 /**
  * Validates a number is in boundaries of 13 bit words.
  */
 int is_valid(int num)
 {
-    return num <= _13BIT_MAX && num >= _13BIT_MIN;
+    return num <= _12BIT_MAX && num >= _12BIT_MIN;
 }
 /**
  * Convert binary string to its equivalence integer number.

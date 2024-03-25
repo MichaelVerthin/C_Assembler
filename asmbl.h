@@ -1,43 +1,49 @@
 /* asmbl.h -- primary header for main */
-#pragma once
+#ifndef ASMBL_H
 #include <stdlib.h>
 #include <stdio.h>
-#define _13BIT_MAX 0x1FFF /* Biggest number for integer in word_t */
-#define _13BIT_MIN 0xE000 /* Smallest number for integer in word_t */
-#define LINE_LEN 128      /* Line length */
-#define MEM_SIZE 4096     /* Number of cells of memory, each 14 bits */
+#include "line.h"
+#define ASMBL_H
+#define _12BIT_MAX 0xFFF      /* Biggest number for integer in word_t */
+#define _12BIT_MIN 0xFFFFF001 /* Smallest number for integer in word_t */
+/*#define LINE_LEN 128      /* Line length */
+#define MEM_SIZE 4096 /* Number of cells of memory, each 14 bits */
 #define OPCODE_NUM 16
 #define TXT_FILE "test.txt" /* File to read, assembly language */
+
+/* Opcodes Instructions */
+#define MOV 0
+#define CMP 1
+#define ADD 2
+#define SUB 3
+#define NOT 4
+#define CLR 5
+#define LEA 6
+#define INC 7
+#define DEC 8
+#define JMP 9
+#define BNE 10
+#define RED 11
+#define PRN 12
+#define JSR 13
+#define RTS 14
+#define HLT 15
+/**********************/
+
+#define IMMIDIATE 0
+#define NEGATIVE -
+#define POSITIVE +
+
 enum BOOL
 {
     FALSE,
     TRUE
 };
-
-/* enum OPCODES_E
-{
-    mov,
-    cmp,
-    add,
-    sub,
-    not,
-    clr,
-    lea,
-    inc,
-    dec,
-    jmp,
-    bne,
-    red,
-    prn,
-    jsr,
-    rts,
-    hlt
-}; */
 enum ARE_E
 {
     A = 0,
     R = 1,
-    E = 10
+    E = 2
 };
 /**
  * word datatype
@@ -51,13 +57,20 @@ struct
     unsigned int opcd : 4;  /* opcode */
     unsigned int unusd : 4; /* unused: initialized to 0 */
 } word_t;
+typedef struct word_t WORD_T;
+
 struct
 {
     char *name;
     unsigned int reg : 14;
 } _register_t;
-typedef struct word_t WORD_T;
 typedef struct _register_t REGISTER;
+union
+{
+    line_t *guidance;
+    line_t *command;
+    line_t *macro;
+} line_u_;
 // int first_pass(FILE *fptr)
 // {
 //     char *line = (char *)malloc(sizeof(char) * LINE_LEN);
@@ -89,3 +102,4 @@ typedef struct _register_t REGISTER;
 // {
 //     return EXIT_SUCCESS;
 // }
+#endif

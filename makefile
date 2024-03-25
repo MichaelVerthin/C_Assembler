@@ -5,9 +5,26 @@
 CC = gcc
 src = $(wildcard *.c)
 obj = $(src:.c=.o)
-LDFLAGS = -Wall -ansi -pedantic
+LDFLAGS = -g -Wall -ansi -pedantic
 myprog: $(obj)
 		$(CC) -o $@ $^ $(LDFLAGS)
+pass.o: pass.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
+
+macro.o: macro.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
+
+math.o: math.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
+
+opcode.o: opcode.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
+
+line.o: line.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
+
+asmbl.o: asmbl.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
 .PHONY: clean
 clean:
-		rm -f $(obj) myprog
+		rm -f *.o myprog

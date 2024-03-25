@@ -60,7 +60,9 @@
     "emergency_free_mem.h": "c",
     "main.h": "c",
     "line.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "stdlib.h": "c",
+    "string.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 }

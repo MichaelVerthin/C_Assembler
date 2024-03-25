@@ -1,39 +1,30 @@
-#include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 #include "pass.h"
 #include "asmbl.h"
-#include "macro.h"
 #include "line.h"
+#include "misc.h"
+
 int first_pass(FILE *fptr)
 {
     char *line = (char *)malloc(sizeof(char) * LINE_LEN);
-    line_t oLine;
-    line_t *pLINE = &oLine;
-    /* Reading line by line of the file, line is not a comment ';' */
-    while (pLINE->line = fgets(line, LINE_LEN, fptr))
+    line_t *pLINE = (line_t *)malloc(sizeof(line_t));
+    /* Reading line by line of the file, line is not whitespace or a comment */
+    while ((pLINE->line = fgets(line, LINE_LEN + 1, fptr)) && !skipable_line(pLINE->line))
     {
-        /* FIRST PASS */
-        if (line[0] == ';' || isspace(line[0]))
+        /* Check if line is longer than LINE_LEN */
+        if (strlen(pLINE->line) > LINE_LEN)
+        {
+            fprintf(stderr, "Line Exceeds max line length %d.\n", LINE_LEN);
             continue;
+        }
         parse_line(pLINE);
-        /* Is MACRO? */
-        /**
-         * TODO - Configure Macro checker
-         */
-        /* Is Data Holder? such as array or variable? */
-        /**
-         * TODO - Configure array parser
-         */
-        /* .extern or .entry ? */
-        /**
-         * TODO - Configure .extern/.entry
-         */
-
-        fprintf(stdout, "%s", pLINE->line);
+        if ((pLINE->label) != NULL)
+            fprintf(stdout, "THIS IS LABEL: '%s'\n", pLINE->label);
     }
-    free(line);
-    return EXIT_SUCCESS;
+    SAFE_FREE(line)
+    LINE_FREE(pLINE);
 }
 
 int second_pass(FILE *fptr)
