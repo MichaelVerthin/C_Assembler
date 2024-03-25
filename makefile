@@ -1,52 +1,27 @@
-#
-# Makefile for Assembler in ANSI-C
-# Compiler: GNU C Compiler
-#
+# Makefile for your assembler (assuming C source files)
+
+# Compiler
 CC = gcc
-src = $(wildcard *.c)
-obj = $(src:.c=.o)
 
-LDFLAGS = -g -Wall -ansi -pedantic -fno-pie
+# Source files
+SRC = $(wildcard *.c)
 
-myprog: $(obj)
-		$(CC) -o $@ $^ $(LDFLAGS)
+# Object files (use .o extension for C)
+OBJ = $(SRC:.c=.o)
 
-globals.o: globals.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
+# Executable name
+TARGET = myprog
 
-pass.o: pass.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
+# Compiler flags
+CFLAGS = -g -Wall -ansi -pedantic
 
-files.o: files.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
+# Rule to build the executable
+$(TARGET): $(OBJ)
+    $(CC) $(CFLAGS) -o $@ $^
 
-macro.o: macro.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
-encode.o: encode.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
-misc.o: misc.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
-hash.o: hash.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
-math.o: math.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
-symbols.o: symbols.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
-opcodes.o: opcodes.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
-line.o: line.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
-asmbl.o: asmbl.c
-		$(CC) -c $< -o $@ $(LDFLAGS)
-
+# Phony target for clean
 .PHONY: clean
+
+# Clean rule
 clean:
-		rm -f *.o myprog *.ob *.ext *.ent *.gch
+    rm -f $(OBJ) $(TARGET)
