@@ -1,6 +1,5 @@
-LINER *parse_line(LINER *);
-
-typedef struct
+#pragma once
+struct line_s
 {
     char *line;
     char *first;
@@ -8,4 +7,7 @@ typedef struct
     char *third;
     char *fourth;
     char *fifth;
-} LINER;
+};
+typedef struct line_s line_t;
+
+line_t *parse_line(line_t *);

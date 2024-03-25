@@ -1,2 +1,2 @@
 #include "line.h"
-int ismacro(LINER *);
+int ismacro(line_t *);

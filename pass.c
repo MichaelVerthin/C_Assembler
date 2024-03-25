@@ -7,10 +7,10 @@
 int first_pass(FILE *fptr)
 {
     char *line = (char *)malloc(sizeof(char) * LINE_LEN);
-    LINER oLine;
-    LINER *pLINE = &oLine;
+    line_t oLine;
+    line_t *pLINE = &oLine;
     /* Reading line by line of the file, line is not a comment ';' */
-    while (oLine.line = fgets(line, LINE_LEN, fptr))
+    while (fgets(line, LINE_LEN, fptr))
     {
         /* FIRST PASS */
         if (line[0] == ';')

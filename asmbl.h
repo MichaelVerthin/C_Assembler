@@ -1,4 +1,5 @@
 /* asmbl.h -- primary header for main */
+#pragma once
 #include <stdlib.h>
 #include <stdio.h>
 #define _13BIT_MAX 0x1FFF /* Biggest number for integer in word_t */
