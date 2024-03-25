@@ -19,6 +19,7 @@ int main(int argc, char const *argv[])
     {
         fprintf(stdout, "%s", line);
     }
+
     printf("the size of word_s is: %d bytes\n", sizeof(word_s));
     printf("the size of register_t is: %d bytes\n", sizeof(register_t));
     printf("the size of test is: %d bytes\n", sizeof(test));
