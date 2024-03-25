@@ -1,17 +1,29 @@
 #
-# Makefile for Assembler in C
+# Makefile for Assembler in ANSI-C
 # Compiler: GNU C Compiler
 #
 CC = gcc
 src = $(wildcard *.c)
 obj = $(src:.c=.o)
+
 LDFLAGS = -g -Wall -ansi -pedantic
+
 myprog: $(obj)
 		$(CC) -o $@ $^ $(LDFLAGS)
+
+globals.o: globals.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
+
 pass.o: pass.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
 
+files.o: files.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
+
 macro.o: macro.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
+
+encode.o: encode.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
 
 misc.o: misc.c
@@ -23,10 +35,10 @@ hash.o: hash.c
 math.o: math.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
 
-opcode.o: opcode.c
+symbols.o: symbols.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
 
-symbols.o: symbols.c
+opcodes.o: opcodes.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
 
 line.o: line.c
@@ -34,6 +46,7 @@ line.o: line.c
 
 asmbl.o: asmbl.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
+
 .PHONY: clean
 clean:
-		rm -f *.o myprog
+		rm -f *.o myprog *.ob *.ext *.ent *.gch
