@@ -1,16 +1,18 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include "pass.h"
 #include "asmbl.h"
-#include "macro.c"
 
 int first_pass(FILE *fptr)
 {
     char *line = (char *)malloc(sizeof(char) * LINE_LEN);
 
     /* Reading line by line of the file, line is not a comment ';' */
-    while (fgets(line, LINE_LEN, fptr) && line[0] != ';')
+    while (fgets(line, LINE_LEN, fptr))
     {
         /* FIRST PASS */
-
+        if (line[0] == ';')
+            continue;
         /* Is MACRO? */
         /**
          * TODO - Configure Macro checker
@@ -26,6 +28,7 @@ int first_pass(FILE *fptr)
 
         fprintf(stdout, "%s", line);
     }
+    free(line);
     return EXIT_SUCCESS;
 }
 

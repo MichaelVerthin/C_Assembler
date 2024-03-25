@@ -1,7 +1,5 @@
-#include <math.h>
 #include <stdio.h>
-#define _13BIT_MAX 0x1FFF /* Biggest number for integer in word_s */
-#define _13BIT_MIN 0xE000 /* Smallest number for integer in word_s */
+#include "asmbl.h"
 /**
  * Validates a number is in boundaries of 13 bit words.
  */
@@ -26,7 +24,7 @@ int conv_bd(int bin_num)
     {
         rem = bin_num % 10;
         bin_num /= 10;
-        dec_num += rem + pow(2, i);
+        dec_num += rem << i;
     }
     return dec_num;
 }

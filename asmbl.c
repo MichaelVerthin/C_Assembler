@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include "asmbl.h"
+#include "pass.h"
 
 /*
 static REGISTER r0, r1, r2, r3, r4, r5, r6, r7;
