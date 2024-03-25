@@ -4,7 +4,7 @@
 /**
  * Validates a number is in boundaries of 13 bit words.
  */
-int is_valid(int num)
+int is_valid(long num)
 {
     return num <= _12BIT_MAX && num >= _12BIT_MIN;
 }
@@ -36,7 +36,6 @@ int conv_bd(int bin_num)
  */
 int conv_db(int dec_num)
 {
-    int bin_num = 0;
     if (!is_valid(dec_num))
     {
         fprintf(stderr, "Number exceeds word boundaries");

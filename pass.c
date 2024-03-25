@@ -10,20 +10,28 @@ int first_pass(FILE *fptr)
 {
     char *line = (char *)malloc(sizeof(char) * LINE_LEN);
     line_t *pLINE = (line_t *)malloc(sizeof(line_t));
-    /* Reading line by line of the file, line is not whitespace or a comment */
-    while ((pLINE->line = fgets(line, LINE_LEN + 1, fptr)) && !skipable_line(pLINE->line))
+    int parse;
+
+    IC = 0; /* Instruction Counter */
+    /* Reading line by line of the file */
+    while (((pLINE->line = fgets(line, LINE_LEN + 2, fptr))))
     {
+        ++IC;
         /* Check if line is longer than LINE_LEN */
         if (strlen(pLINE->line) > LINE_LEN)
         {
-            fprintf(stderr, "Line Exceeds max line length %d.\n", LINE_LEN);
-            continue;
+            ERROR_MSG("Line Exceeds max line length.")
+            return EXCEEDS_MAX_LENGTH;
         }
-        parse_line(pLINE);
-        if ((pLINE->label) != NULL)
-            fprintf(stdout, "THIS IS LABEL: '%s'\n", pLINE->label);
+        /* line is a whitespace or a comment - CONTINUE */
+        if (skipable_line(pLINE->line))
+            continue;
+        /******************** PARSING LINE ********************/
+        parse = parse_line(pLINE);  /**/
+        if (parse)                  /**/
+            return PARSING_FAILURE; /**/
+        /******************************************************/
     }
-    SAFE_FREE(line)
     LINE_FREE(pLINE);
 }
 

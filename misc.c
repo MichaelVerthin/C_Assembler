@@ -5,40 +5,45 @@
 #include "line.h"
 #include "misc.h"
 #include "asmbl.h"
+#include "symbols.h"
 
-unsigned long protected[INIT_PROTECTED_SIZE];
+/*extern unsigned long protected[INIT_PROTECTED_SIZE];*/
 
 /* Free the line object and its dynamically allocated elements */
 void LINE_FREE(line_t *oLINE)
 {
     if (oLINE->label)
-        SAFE_FREE(oLINE->label);
-    SAFE_FREE(oLINE);
+        SAFE_FREE(oLINE->label)
+    if (oLINE->parsed)
+    {
+        switch (oLINE->parsed->type)
+        {
+        case SYMBOL_MACRO:
+            /* freeing macro */
+            destroy_macro(oLINE->parsed);
+            break;
+
+        default:
+            /* freeing symbol union */
+            SAFE_FREE(oLINE->parsed->symbol)
+            break;
+        }
+    }
+    if (oLINE->line)
+        SAFE_FREE(oLINE->line)
+    SAFE_FREE(oLINE)
 }
 
-/* Check if str is a legal number. Accepts '+' and '-' signs */
+/**
+ * Check if str is a legal number. Accepts '+' and '-' signs
+ * returns _12BIT_MIN  on illegal string.
+ */
 int is_num(char *str)
 {
-    char sign = str[0];
-    int num, i, size = strlen(str);
-    for (i = 1; i < size && isdigit(str[i]); i++)
-        ;
-    /* The string contain a non-digit character thus it is not a number */
-    if (i < size)
-        return _12BIT_MIN;
-    switch (sign)
-    {
-    case '-':
-        num = atoi(++str) * -1;
-        break;
-    case '+':
-        num = atoi(++str);
-        break;
-    default:
-        num = atoi(++str);
-        break;
-    }
-    if (is_valid(num))
+    char *ch;
+    int num = (int)strtol(str, &ch, DECIMAL_BACE);
+
+    if ((*ch == '\0') && is_valid(num))
         return num;
     return _12BIT_MIN;
 }
@@ -57,43 +62,43 @@ int is_string(char *str)
 int is_reserved(char *str)
 {
     int i;
-    unsigned long reserved_opcodes[OPCODE_NUM] =
+    char *reserved_opcodes[OPCODE_NUM] =
         {
-            hash("mov"), hash("cmp"),
-            hash("add"), hash("sub"),
-            hash("not"), hash("clr"),
-            hash("lea"), hash("inc"),
-            hash("dec"), hash("jmp"),
-            hash("bne"), hash("red"),
-            hash("prn"), hash("jst"),
-            hash("rts"), hash("hlt")};
+            "mov", "cmp", "add", "sub",
+            "not", "clr", "lea", "inc",
+            "dec", "jmp", "bne", "red",
+            "prn", "jst", "rts", "hlt"};
     for (i = 0; i < OPCODE_NUM; i++)
     {
-        if (hash(str) == reserved_opcodes[i])
+        if (strcmp_hash(str, reserved_opcodes[i]))
             return 1;
     }
     return 0;
 }
-
-int insert_protected(char *str)
+/* Trim whitespaces from end of string */
+char *
+trim_white(char *str)
 {
-    int i, arr_size = sizeof(protected) / sizeof(unsigned long);
-    void *alloc;
+    char *pos;
+    int len = strlen(str);
+    if (len == 0)
+        return str;
+    pos = str + len - 1;
+    while (pos >= str && isspace(*pos))
+    {
+        *pos = '\0';
+        pos--;
+    }
+    return str;
+}
 
-    for (i = 0; i < arr_size; i++)
-    {
-        if (!protected[i])
-        {
-            protected[i] = hash(str);
-            return 1;
-        }
-    }
-    alloc = realloc(protected, arr_size + INIT_PROTECTED_SIZE);
-    if (!alloc)
-    {
-        fprintf(stderr, "Failed to allocate new memory for protected words array.\n");
-        return -1;
-    }
-    protected[i] = hash(str);
-    return 0;
+/* Trim whitespaces from start and end of string */
+char *
+clear_str(char *str)
+{
+    char *ch = str;
+    while (isspace(*ch++))
+        ;
+    str = trim_white(--ch);
+    return str;
 }

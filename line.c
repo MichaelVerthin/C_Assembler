@@ -4,31 +4,91 @@
 #include "line.h"
 #include "asmbl.h"
 #include "misc.h"
+#include "symbols.h"
 
 char *strsub(char *, size_t, char *);
-
-int parse_line(line_t *oline)
+char *is_label(char *);
+int is_macro(line_t *);
+int parse_line(line_t *pLINE)
 {
-    char *label = (char *)malloc(sizeof(char) * LABEL_LEN);
-    if ((label = is_label(oline->line)))
-        oline->label = label;
+    char *label;
+    /***********************************************\
+                        LABELS
+    \***********************************************/
+    if ((label = is_label(pLINE->line)))
+        pLINE->label = label;
     else
-        oline->label = NULL;
-    return 0;
+        pLINE->label = NULL;
+    /* strtok label from line, thus taking only the substring */
+    if (pLINE->label)
+    {
+        strtok(pLINE->line, " ");
+        pLINE->line = strtok(NULL, "\0");
+    }
+    /************************************************/
+
+    /***********************************************\
+                        MACROS
+    \***********************************************/
+    if (is_macro(pLINE))
+    {
+        if (pLINE->label)
+        {
+            ERROR_MSG("No label is allowed on a macro sentence\nAborting")
+            return EXIT_FAILURE;
+        }
+        return PARSED_MACRO;
+    }
+    /************************************************/
+    return EXIT_FAILURE;
 }
 
-int is_macro(line_t *oline)
+int is_macro(line_t *pLINE)
 {
-    if (oline->label)
+    char *ch = pLINE->line;
+    char *name, *data_s;
+    int data;
+
+    /* trim whitespaces from start */
+    while (isspace(*ch++))
+        ;
+    ch = strtok(ch - 1, " ");
+    /* .define has been identified */
+    if (strcmp_hash(ch, ".define"))
     {
-        /* check if macro on second word */
-    }
-    else
-    {
-        /* check if macro on first word */
+        symbol_t *macro = init_macro();
+        name = strtok(NULL, "=");
+        if (!macro)
+        {
+            ERROR_MSG("Failed to allocate memory for macro_t\nAborting...")
+            return FALSE;
+        }
+        /* Extracting the name of the macro */
+        if ((name = clear_str(name)) != NULL)
+            macro->symbol->macro->name = name;
+        else
+        {
+            ERROR_MSG("Error Extracting macro name\nAborting...")
+            destroy_macro(macro);
+            return FALSE;
+        }
+        /* Extracting the data of the macro */
+        data_s = clear_str(strtok(NULL, "\0"));
+        data = is_num(data_s);
+        if (data != _12BIT_MIN)
+            macro->symbol->macro->data = data;
+        else
+        {
+            ERROR_MSG("Error extracting macro data\nAborting...")
+            destroy_macro(macro);
+            return FALSE;
+        }
+        /* Pointing the line object to the macro object */
+        pLINE->parsed = macro;
+        return TRUE;
     }
 
-    return 1;
+    return FALSE;
 }
 
 /**
@@ -50,14 +110,14 @@ is_label(char *line)
         {
             if (ch - st > LABEL_LEN)
             {
-                fprintf(stderr, "Label %s is too long.\nMust not exceed LABEL_LEN    %d.\n", strsub(st, ch - st, line), LABEL_LEN);
+                ERROR_MSG("Label is too long.")
                 SAFE_FREE(label);
                 return NULL;
             }
             /* Label is a reserved word */
             if (is_reserved(label))
             {
-                fprintf(stderr, "Label name is a reserved word\n");
+                ERROR_MSG("Label name is a reserved word")
                 SAFE_FREE(label);
                 return NULL;
             }
@@ -71,25 +131,24 @@ is_label(char *line)
 int is_whitespace(char *line)
 {
     char *ch = line;
-    while (*line != EOF)
+    while (*line != '\0')
     {
-        if (!isspace(*line))
-            return 0;
-        line++;
+        if (!isspace(*line++))
+            return FALSE;
     }
-    return 1;
+    return TRUE;
 }
 
 /* Is the line a comment? */
-int is_comment(char ch)
+is_comment(char *line)
 {
-    return ch == ';';
+    return (*line == ';');
 }
 
 /* Is the line worth parsing at all? */
 int skipable_line(char *line)
 {
-    return is_comment(*line) || is_whitespace(line);
+    return (is_comment(line) || is_whitespace(line));
 }
 
 /**

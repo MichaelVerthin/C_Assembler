@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include "line.h"
 #define ASMBL_H
-#define _12BIT_MAX 0xFFF      /* Biggest number for integer in word_t */
-#define _12BIT_MIN 0xFFFFF001 /* Smallest number for integer in word_t */
+#define _12BIT_MAX 0xFFF  /* Biggest number for integer in word_t */
+#define _12BIT_MIN -0xFFF /* Smallest number for integer in word_t */
 /*#define LINE_LEN 128      /* Line length */
 #define MEM_SIZE 4096 /* Number of cells of memory, each 14 bits */
 #define OPCODE_NUM 16
@@ -31,8 +31,8 @@
 /**********************/
 
 #define IMMIDIATE 0
-#define NEGATIVE -
-#define POSITIVE +
+#define NEGATIVE '-'
+#define POSITIVE '+'
 
 enum BOOL
 {
@@ -65,11 +65,7 @@ struct
     unsigned int reg : 14;
 } _register_t;
 typedef struct _register_t REGISTER;
-union
-{
-    line_t *guidance;
-    line_t *command;
-    line_t *macro;
-} line_u_;
+
+int IC; /* Instruction Counter */
 
 #endif

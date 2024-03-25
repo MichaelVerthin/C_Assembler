@@ -22,6 +22,7 @@ int main(int argc, char const *argv[])
     }
     while (--argc)
     {
+        fprintf(stdout, "Assembling file %s...\n", argv[argc]);
         fptr = fopen(argv[argc], "r");
         if (!fptr)
         {
@@ -31,24 +32,25 @@ int main(int argc, char const *argv[])
         pass_return = first_pass(fptr);
         if (pass_return)
         {
-            fprintf(stderr, "First pass failed!\nTerminating, %d\n", errno);
+            fprintf(stderr, "First pass failed! (%s)\nTerminating... %d\n", argv[argc], 1);
             fclose(fptr);
             continue;
         }
         pass_return = second_pass(fptr);
         if (pass_return)
         {
-            fprintf(stderr, "Second pass failed!\nTerminating, %d\n", errno);
+            fprintf(stderr, "Second pass failed! (%s)\nTerminating... %d\n", argv[argc], 1);
             fclose(fptr);
             continue;
         }
         fclose(fptr);
+        puts("\n");
     }
-    pass_return = insert_protected("ABC");
+    /*pass_return = insert_protected("ABC");
     if (pass_return)
         printf("%d - BAD\n", pass_return);
     else
         printf("%d - GOOD\n", pass_return);
-    printf("Protected element is %ld\n.", protected[0]);
+    printf("Protected element is %ld\n.", protected[0]);*/
     return EXIT_SUCCESS;
 }
