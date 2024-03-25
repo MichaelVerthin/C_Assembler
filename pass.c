@@ -13,8 +13,10 @@ int first_pass(FILE *fptr)
     int parse;
 
     IC = 0; /* Instruction Counter */
+    static symbol_node list;
+
     /* Reading line by line of the file */
-    while (((pLINE->line = fgets(line, LINE_LEN + 2, fptr))))
+    while ((pLINE->line = fgets(line, LINE_LEN + 2, fptr)) != NULL)
     {
         ++IC;
         /* Check if line is longer than LINE_LEN */
@@ -33,9 +35,11 @@ int first_pass(FILE *fptr)
         /******************************************************/
     }
     LINE_FREE(pLINE);
+    destroy_list(list.next);
+    return 0;
 }
 
 int second_pass(FILE *fptr)
 {
-    return EXIT_SUCCESS;
+    return 0;
 }

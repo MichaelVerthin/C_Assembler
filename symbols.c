@@ -5,7 +5,7 @@
 symbol_t *init_macro();
 
 symbol_t *
-init_symbol(int type)
+init_symbol(enum SYMBOL type)
 {
     symbol_t *sym;
     switch (type)
@@ -25,11 +25,6 @@ init_symbol(int type)
     }
     return NULL;
 }
-struct symbol_nd
-{
-    int type;
-    symbol_t *next;
-};
 /**
  * Initialize symbol struct for the macro lines.
  */
@@ -65,4 +60,48 @@ void destroy_macro(symbol_t *macro)
         }
         SAFE_FREE(macro)
     }
+}
+/**
+ * Creates a new node of symbol_t for the linked list,
+ * with the properties of symbol and its type.
+ * returns the list with the new node connected to its tail.
+ * clean with destroy_list();
+ */
+symbol_node *
+new_node(symbol_node *node, symbol_t *symbol, enum SYMBOL type)
+{
+    symbol_node *tmp, *new;
+    tmp = node;
+    /* Iterating through the linked list */
+    while (tmp->next)
+        tmp->data = tmp->next;
+
+    new = (symbol_node *)malloc(sizeof(symbol_node));
+    if (!new)
+        return NULL;
+
+    new->type = type;
+    switch (type)
+    {
+    case SYMBOL_MACRO:
+        new->data = symbol->symbol->macro;
+        break;
+
+    default:
+        break;
+    }
+
+    return new;
+}
+
+void destroy_list(symbol_node *list)
+{
+    symbol_node *tmp = list;
+    while (tmp->next)
+    {
+        list = list->next;
+        SAFE_FREE(tmp)
+        tmp = list;
+    }
+    return;
 }

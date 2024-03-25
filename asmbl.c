@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
     if (argc < 2)
     {
         fprintf(stderr, "No input files\nAssembling terminated.\n");
-        return EXIT_FAILURE;
+        return NO_FILE;
     }
     while (--argc)
     {
@@ -44,7 +44,7 @@ int main(int argc, char const *argv[])
             continue;
         }
         fclose(fptr);
-        puts("\n");
+        fprintf(stdout, "Fishished assembling file %s\n", argv[argc]);
     }
     /*pass_return = insert_protected("ABC");
     if (pass_return)

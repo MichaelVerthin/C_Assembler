@@ -25,7 +25,8 @@ enum PARSE
 {
     PARSED_MACRO,
     PARSED_DIRECTIVE,
-    PARSED_INSTRUCTION
+    PARSED_INSTRUCTION,
+    PARSED_FAILURE
 };
 
 int parse_line(line_t *);
