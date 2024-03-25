@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 #include "pass.h"
 #include "asmbl.h"
 #include "macro.h"
@@ -10,10 +11,10 @@ int first_pass(FILE *fptr)
     line_t oLine;
     line_t *pLINE = &oLine;
     /* Reading line by line of the file, line is not a comment ';' */
-    while (fgets(line, LINE_LEN, fptr))
+    while (pLINE->line = fgets(line, LINE_LEN, fptr))
     {
         /* FIRST PASS */
-        if (line[0] == ';')
+        if (line[0] == ';' || isspace(line[0]))
             continue;
         parse_line(pLINE);
         /* Is MACRO? */
@@ -29,7 +30,7 @@ int first_pass(FILE *fptr)
          * TODO - Configure .extern/.entry
          */
 
-        fprintf(stdout, "%s", line);
+        fprintf(stdout, "%s", pLINE->line);
     }
     free(line);
     return EXIT_SUCCESS;
