@@ -44,13 +44,13 @@ typedef struct symbol_nd
 {
     int type;
     symbol_t *data;
-    symbol_t *next;
+    struct symbol_node *next;
 } symbol_node;
 
 extern symbol_node *list;
 
-symbol_t *init_macro();
 symbol_t *init_symbol(enum SYMBOL);
+symbol_t *init_macro();
 void destroy_macro(symbol_t *);
 void destroy_list(symbol_node *);
 

@@ -12,7 +12,7 @@ init_symbol(enum SYMBOL type)
     {
     case SYMBOL_MACRO:
         sym = init_macro();
-        if (!sym)
+        if (sym)
             return sym;
         break;
     case SYMBOL_DATA:
@@ -68,13 +68,17 @@ void destroy_macro(symbol_t *macro)
  * clean with destroy_list();
  */
 symbol_node *
-new_node(symbol_node *node, symbol_t *symbol, enum SYMBOL type)
+new_node(symbol_t *symbol, enum SYMBOL type)
 {
     symbol_node *tmp, *new;
-    tmp = node;
+    tmp = list;
+
+    if (!(list->data))
+    {
+    }
     /* Iterating through the linked list */
     while (tmp->next)
-        tmp->data = tmp->next;
+        tmp = tmp->next;
 
     new = (symbol_node *)malloc(sizeof(symbol_node));
     if (!new)
@@ -84,7 +88,7 @@ new_node(symbol_node *node, symbol_t *symbol, enum SYMBOL type)
     switch (type)
     {
     case SYMBOL_MACRO:
-        new->data = symbol->symbol->macro;
+        new->data = symbol;
         break;
 
     default:
