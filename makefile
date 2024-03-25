@@ -10,6 +10,8 @@ LDFLAGS = -g -Wall -ansi -pedantic -fno-pie
 
 myprog: $(obj)
 		$(CC) -o $@ $^ $(LDFLAGS)
+%.o: %.c
+    $(CC) $(LDFLAGS) -c $< -o $@
 
 globals.o: globals.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
