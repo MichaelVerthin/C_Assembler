@@ -10,44 +10,42 @@ LDFLAGS = -g -Wall -ansi -pedantic -fno-pie
 
 myprog: $(obj)
 		$(CC) -o $@ $^ $(LDFLAGS)
-%.o: %.c
-    $(CC) $(LDFLAGS) -c $< -o $@
 
 globals.o: globals.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 pass.o: pass.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 files.o: files.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 macro.o: macro.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 encode.o: encode.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 misc.o: misc.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 hash.o: hash.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 math.o: math.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 symbols.o: symbols.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 opcodes.o: opcodes.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 line.o: line.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 asmbl.o: asmbl.c
-		$(CC) -o $@ -c $^ $(LDFLAGS)
+		$(CC) -c $< -o $@ $(LDFLAGS)
 
 .PHONY: clean
 clean:
