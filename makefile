@@ -7,7 +7,7 @@ src = $(wildcard *.c)
 obj = $(src:.c=.o)
 LDFLAGS = -g -Wall -ansi -pedantic
 myprog: $(obj)
-    	$(CC) -o $@ $^ $(LDFLAGS)
+		$(CC) -o $@ $^ $(LDFLAGS)
 pass.o: pass.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
 
@@ -23,8 +23,8 @@ hash.o: hash.c
 math.o: math.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
 
-#opcode.o: opcode.c
-#		$(CC) -o $@ -c $^ $(LDFLAGS)
+opcode.o: opcode.c
+		$(CC) -o $@ -c $^ $(LDFLAGS)
 
 symbols.o: symbols.c
 		$(CC) -o $@ -c $^ $(LDFLAGS)
