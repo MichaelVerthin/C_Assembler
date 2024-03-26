@@ -3,8 +3,8 @@
 This project presents a robust pseudo assembly language assembler, focusing on the translation component.<br />
 Developed for a C class course at the Open University of Israel, it forms the core translation engine within a comprehensive assembler software suite
 > [!TIP]
-> 1. <strong>Build:</strong> Use `make` to create the assembler program (`myprog`).<br />
-> 2. <strong>Assemble:</strong> Run `./myprog` followed by your assembly file (e.g., `mycode.as`).
+> 1. <strong>Build:</strong> Use `make` to create the assembler program (`myprog`)<br />
+> 2. <strong>Assemble:</strong> Run `./myprog` followed by your assembly file (e.g., `mycode.as`)
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Target Machine Architecture Overview}}$
 
@@ -38,9 +38,13 @@ The target machine utilizes a 14-bit instruction word format for efficient encod
 - <strong>Source Register (4-5 bits):</strong> Specifies the source register operand (if applicable to the instruction).
 - <strong>Opcode (6-9 bits):</strong> Identifies the specific operation to be performed (e.g., mov, cmp, add).
 - <strong>Not Used (10-13 bits):</strong> Reserved for future instruction set expansion.
+> [!IMPORTANT]
+> The assembler uses a 14-bit instruction word format for efficient encoding. Understanding this structure is crucial for writing correct assembly instructions
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Compiler Compatibility}}$
 
 <div align="left">
 The project is designed to function seamlessly with an ANSI standard C compiler, ensuring broad compatibility with modern development environments
 </div>
+> [!NOTE]
+> If you encounter any compiler-related issues, double-check that you're using an ANSI standard C compiler
