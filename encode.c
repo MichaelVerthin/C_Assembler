@@ -3,13 +3,13 @@
 #include <ctype.h>
 
 /* Included header files for the assembly process */
-#include "asmbl.h"   // Header for assembly language related functions
-#include "symbols.h" // Header for symbol table management functions
-#include "misc.h"    // Header for miscellaneous utility functions
-#include "files.h"   // Header for functions related to file operations
-#include "line.h"    // Header for line parsing related functions
-#include "opcodes.h" // Header for opcode definitions and functions
-#include "globals.h" // Header for global variables used throughout assembly
+#include "asmbl.h"   /* Header for assembly language related functions */
+#include "symbols.h" /* Header for symbol table management functions */
+#include "misc.h"    /* Header for miscellaneous utility functions */
+#include "files.h"   /* Header for functions related to file operations */
+#include "line.h"    /* Header for line parsing related functions */
+#include "opcodes.h" /* Header for opcode definitions and functions */
+#include "globals.h" /* Header for global variables used throughout assembly */
 
 /* Function prototypes for symbol table and instruction encoding functions */
 void build_absolute_word(symbol_node *list, char *name, int opvalue, int bSRC, int index);
@@ -151,7 +151,7 @@ int encode(enum PARSE parse, line_t *pLINE, symbol_node **list)
         /* Check for existing label with the same name */
         if (search_list(*list, pLINE->label, NULL, NULL) != ERROR)
         {
-            strcpy(tmp, pLINE->label); // Copy label name to temporary variable
+            strcpy(tmp, pLINE->label); /* Copy label name to temporary variable */
             next_node(*&list, tmp, IC + 100, SYMBOL_CODE);
         }
         else
