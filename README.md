@@ -1,8 +1,7 @@
 ## $\color{rgb(255,127,39)}\large{\textsf{ANCI C Assembly Compliler}}$
 
-<div align="left">
-This project presents a robust pseudo assembly language assembler, focusing on the translation component. Developed for a C class course at the Open University of Israel, it forms the core translation engine within a comprehensive assembler software suite
-</div>
+This project presents a robust pseudo assembly language assembler, focusing on the translation component.
+Developed for a C class course at the Open University of Israel, it forms the core translation engine within a comprehensive assembler software suite
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Target Machine Architecture Overview}}$
 
