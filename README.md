@@ -61,5 +61,5 @@ The project is designed to function seamlessly with an ANSI standard C compiler,
 
 <br />
 
-> [!WARNING]
+> [!CAUTION]
 > If you encounter any compiler-related issues, double-check that you're using an ANSI standard C compiler
