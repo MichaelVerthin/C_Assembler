@@ -8,24 +8,24 @@
 
 #define _12BIT_MAX 0xFFF    /* Biggest number for integer in word_t */
 #define _12BIT_MIN (-0xFFF) /* Smallest number for integer in word_t */
-/********************************************************************/
+
 /* Error Codes */
-#define NO_FILE 127
-#define EXCEEDS_MAX_LENGTH 2
-#define PARSING_FAILURE 3
+#define NO_FILE 127          /* Error code for no input file provided */
+#define EXCEEDS_MAX_LENGTH 2 /* Error code for exceeding maximum length */
+#define PARSING_FAILURE 3    /* Error code for parsing failure */
 
-#define MEM_SIZE 4096 /* Number of cells of memory, each 14 bits */
-#define OPCODE_NUM 16
-#define REGISTER_NUM 8
+#define MEM_SIZE 4096  /* Number of memory cells, each 14 bits */
+#define OPCODE_NUM 16  /* Number of opcode instructions */
+#define REGISTER_NUM 8 /* Number of registers */
 
-#define INITIAL_IC_ARR 100
-#define INITIAL_DC_ARR 100
+#define INITIAL_IC_ARR 100 /* Initial size of instruction array */
+#define INITIAL_DC_ARR 100 /* Initial size of data array */
 
 #define LINE_LEN 80  /* Line maximum length */
 #define LABEL_LEN 31 /* Label maximum length */
 #define MACRO_LEN 20 /* macro maximum length - length of ".define" or ".data" */
 
-/**
+/*
  * Opcodes Instructions
  */
 #define MOV 0
@@ -44,7 +44,7 @@
 #define JSR 13
 #define RTS 14
 #define HLT 15
-/**********************/
+/*********************/
 
 #define NEGATIVE '-'
 #define POSITIVE '+'
@@ -54,7 +54,7 @@ enum BOOL
     TRUE
 };
 
-/**
+/*
  * word datatype
  * each is of size of 14 bits.
  */

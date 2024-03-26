@@ -7,7 +7,6 @@
 #include "opcodes.h"
 #include "globals.h"
 
-
 symbol_t *init_macro();
 symbol_t *init_data(enum SYMBOL type);
 symbol_t *init_code();
@@ -20,22 +19,22 @@ init_symbol(enum SYMBOL type)
     {
     case SYMBOL_MACRO:
         sym = init_macro();
-        if(sym)
+        if (sym)
             return sym;
         break;
     case SYMBOL_DATA_STRING:
         sym = init_data(SYMBOL_DATA_STRING);
-        if(sym)
+        if (sym)
             return sym;
         break;
     case SYMBOL_DATA_NUMBERS:
         sym = init_data(SYMBOL_DATA_NUMBERS);
-            if(sym)
+        if (sym)
             return sym;
         break;
     case SYMBOL_CODE:
         sym = init_code();
-        if(sym)
+        if (sym)
             return sym;
         break;
     default:
@@ -44,10 +43,9 @@ init_symbol(enum SYMBOL type)
     return NULL;
 }
 
-void
-free_symbol(symbol_t *sym)
+void free_symbol(symbol_t *sym)
 {
-    if(!sym || !sym->symbol)
+    if (!sym || !sym->symbol)
         return;
     switch (sym->type)
     {
@@ -71,19 +69,19 @@ free_symbol(symbol_t *sym)
     case SYMBOL_CODE:
         /* SAFE_FREE(sym->symbol->instruction->source->op->name) */
         /* SAFE_FREE(sym->symbol->instruction->destination->op->name) */
-        if(sym->symbol->instruction->source->op)
+        if (sym->symbol->instruction->source->op)
             SAFE_FREE(sym->symbol->instruction->source->op)
-        if(sym->symbol->instruction->destination->op)
+        if (sym->symbol->instruction->destination->op)
             SAFE_FREE(sym->symbol->instruction->destination->op)
-        if(sym->symbol->instruction->source)
+        if (sym->symbol->instruction->source)
             SAFE_FREE(sym->symbol->instruction->source)
-        if(sym->symbol->instruction->destination)
+        if (sym->symbol->instruction->destination)
             SAFE_FREE(sym->symbol->instruction->destination)
-        if(sym->symbol->instruction)
+        if (sym->symbol->instruction)
             SAFE_FREE(sym->symbol->instruction)
-        if(sym->symbol)
+        if (sym->symbol)
             SAFE_FREE(sym->symbol)
-        if(sym)
+        if (sym)
             SAFE_FREE(sym)
         return;
     case SYMBOL_ENTRY:
@@ -96,7 +94,6 @@ free_symbol(symbol_t *sym)
     }
 }
 
-
 /* Initialize symbol struct for the macro lines. */
 symbol_t *
 init_macro()
@@ -104,11 +101,11 @@ init_macro()
     symbol_t *macro_symbol = (symbol_t *)malloc(sizeof(symbol_t));
     union symbol_un *symbol = (union symbol_un *)malloc(sizeof(union symbol_un));
     macro_t *macro = (macro_t *)malloc(sizeof(macro_t));
-    char *name = (char *)malloc(sizeof(char)*MACRO_LEN);
+    char *name = (char *)malloc(sizeof(char) * MACRO_LEN);
 
     if (!macro_symbol || !symbol || !macro || !name)
         return NULL;
-    
+
     macro->name = name;
     symbol->macro = macro;
     macro_symbol->symbol = symbol;
@@ -128,7 +125,7 @@ init_data(enum SYMBOL type)
     char *data = NULL;
     int *nums = NULL;
 
-    if(data_symbol && symbol && directive)
+    if (data_symbol && symbol && directive)
     {
 
         /* Connecting the data objects together */
@@ -136,10 +133,10 @@ init_data(enum SYMBOL type)
         data_symbol->symbol = symbol;
 
         /* for .string */
-        if(type == SYMBOL_DATA_STRING)
+        if (type == SYMBOL_DATA_STRING)
         {
-            data =(char *)malloc(sizeof(char)*LINE_LEN);
-            if(data)
+            data = (char *)malloc(sizeof(char) * LINE_LEN);
+            if (data)
             {
                 directive->data = data;
                 data_symbol->type = SYMBOL_DATA_STRING;
@@ -150,8 +147,8 @@ init_data(enum SYMBOL type)
         /* for .data */
         if (type == SYMBOL_DATA_NUMBERS)
         {
-            nums = (int *)malloc(sizeof(int)*LINE_LEN);
-            if(nums)
+            nums = (int *)malloc(sizeof(int) * LINE_LEN);
+            if (nums)
             {
                 directive->nums = nums;
                 data_symbol->type = SYMBOL_DATA_NUMBERS;
@@ -160,14 +157,12 @@ init_data(enum SYMBOL type)
             return NULL;
         }
     }
-    
+
     SAFE_FREE(data_symbol)
     SAFE_FREE(data)
     SAFE_FREE(directive)
     return NULL;
-        
 }
-
 
 /* Initialize symbol struct for the code lines. */
 symbol_t *
@@ -181,7 +176,7 @@ init_code()
     union op *src_op = (union op *)malloc(sizeof(union op *));
     instruction_t *code = (instruction_t *)malloc(sizeof(instruction_t));
 
-    if(!data_symbol || !symbol || !code || !source || !destination || !src_op || !dst_op)
+    if (!data_symbol || !symbol || !code || !source || !destination || !src_op || !dst_op)
     {
         SAFE_FREE(data_symbol)
         SAFE_FREE(symbol)
@@ -201,10 +196,9 @@ init_code()
     code->destination = destination;
     symbol->instruction = code;
     data_symbol->symbol = symbol;
-    
+
     return data_symbol;
 }
-
 
 symbol_node *
 next_node(symbol_node **list, char *name, int value, enum SYMBOL property)
@@ -215,9 +209,9 @@ next_node(symbol_node **list, char *name, int value, enum SYMBOL property)
     node = (symbol_node *)calloc(sizeof(symbol_node), 1);
     tmp = *list;
 
-    node_name = (char *)malloc(sizeof(char)*strlen(name));
+    node_name = (char *)malloc(sizeof(char) * strlen(name));
 
-    if(!node || !node_name)
+    if (!node || !node_name)
         return NULL;
 
     strcpy(node_name, name);
@@ -226,7 +220,7 @@ next_node(symbol_node **list, char *name, int value, enum SYMBOL property)
     node->property = property;
     node->next = NULL;
 
-    if(!(*list))
+    if (!(*list))
     {
         (*list)->name = node_name;
         (*list)->value = value;
@@ -235,40 +229,38 @@ next_node(symbol_node **list, char *name, int value, enum SYMBOL property)
         SAFE_FREE(node)
         return *list;
     }
-    
 
     /* The list is not empty; get the last node andn set it */
-    while(tmp)
+    while (tmp)
     {
         /* reached the end of the linked list */
-        if(!tmp->next)
+        if (!tmp->next)
         {
             tmp->next = node; /* setting the new node */
             break;
         }
         else
             tmp = tmp->next; /* proceeds to the next node */
-    }        
+    }
 
     return *list;
 }
 
-int
-search_list(const symbol_node *list, char *name, int *value, int *property)
+int search_list(const symbol_node *list, char *name, int *value, int *property)
 {
     char s[LINE_LEN];
-    symbol_node **tmp = (symbol_node **) &list;
-    if(!name)
+    symbol_node **tmp = (symbol_node **)&list;
+    if (!name)
         return ERROR;
     strcpy(s, name);
 
-    while((*tmp))
+    while ((*tmp))
     {
-        if(strcmp_hash((*tmp)->name, s) && (*tmp)->property  & ~(SYMBOL_ENTRY | SYMBOL_EXTERNAL))
+        if (strcmp_hash((*tmp)->name, s) && (*tmp)->property & ~(SYMBOL_ENTRY | SYMBOL_EXTERNAL))
         {
-            if(property)
+            if (property)
                 *property = (*tmp)->property;
-            if(value)
+            if (value)
                 *value = (*tmp)->value;
             return (*tmp)->value;
         }
@@ -277,20 +269,19 @@ search_list(const symbol_node *list, char *name, int *value, int *property)
     return ERROR;
 }
 
-int
-search_list_property(const symbol_node *list, char *name, int *value, int property)
+int search_list_property(const symbol_node *list, char *name, int *value, int property)
 {
     char s[LINE_LEN];
-    symbol_node **tmp = (symbol_node **) &list;
-    if(!name)
+    symbol_node **tmp = (symbol_node **)&list;
+    if (!name)
         return ERROR;
     strcpy(s, name);
 
-    while((*tmp))
+    while ((*tmp))
     {
-        if(strcmp_hash((*tmp)->name, s) && ((*tmp)->property == property))
+        if (strcmp_hash((*tmp)->name, s) && ((*tmp)->property == property))
         {
-            if(value)
+            if (value)
                 *value = (*tmp)->value;
             return (*tmp)->value;
         }
@@ -299,31 +290,28 @@ search_list_property(const symbol_node *list, char *name, int *value, int proper
     return ERROR;
 }
 
-void 
-free_list(symbol_node **list)
+void free_list(symbol_node **list)
 {
     symbol_node **tmp = list;
-    while(*tmp)
+    while (*tmp)
     {
-        
+
         *list = (*list)->next;
-        if((*tmp)->name)
+        if ((*tmp)->name)
             SAFE_FREE((*tmp)->name)
-        if(*tmp)
+        if (*tmp)
             SAFE_FREE(*tmp)
         *tmp = *list;
     }
 }
 
-void
-update_data(symbol_node *list)
+void update_data(symbol_node *list)
 {
     symbol_node *tmp = list;
     while (tmp)
     {
-        if(tmp->property & (SYMBOL_DATA_NUMBERS | SYMBOL_DATA_STRING))
+        if (tmp->property & (SYMBOL_DATA_NUMBERS | SYMBOL_DATA_STRING))
             tmp->value += IC + 100;
         tmp = tmp->next;
     }
-    
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * structs and definitions for the creating of the symbol list
  * each node should consist the properties of a code line, a data line
  * or a macro definition.
@@ -6,7 +6,6 @@
 
 #ifndef SYMBOL_H
 #define SYMBOL_H
-
 
 enum SYMBOL
 {
@@ -27,7 +26,7 @@ typedef struct macro_st
 
 /* DIRECTIVE UNION */
 typedef union directive_st
-{   
+{
     int *nums;
     char *data;
 } directive_t;
@@ -48,11 +47,10 @@ struct operand
     {
         int value;
         char *name;
-    }*op;
+    } *op;
     char *str_index;
-    int index;    
+    int index;
 };
-
 
 /* SYMBOL UNION, CONTAINS ONE OF THE STRUCTS ABOVE */
 union symbol_un
@@ -68,9 +66,7 @@ typedef struct symbol_st
     union symbol_un *symbol;
     enum SYMBOL type; /* according to enum SYMBOL */
 
-}symbol_t;
-
-/************************************************************/
+} symbol_t;
 
 /* SYMBOL NODE STRUCT */
 typedef struct symbol_node
@@ -80,7 +76,6 @@ typedef struct symbol_node
     int value;
     struct symbol_node *next;
 } symbol_node;
-
 
 /* Functions that are visible */
 symbol_t *init_symbol(enum SYMBOL type);

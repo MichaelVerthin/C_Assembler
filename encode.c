@@ -1,3 +1,8 @@
+/*
+ *This code file includes various functions responsible for encoding assembly instructions and symbols.
+ *These functions handle the processing and encoding of assembly instructions, symbols, and directives.
+ *They also manage the construction of words representing different addressing modes.
+ */
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -9,13 +14,14 @@
 #include "opcodes.h"
 #include "globals.h"
 
+/* Function prototypes */
 void build_absolute_word(symbol_node *list, char *name, int opvalue, int bSRC, int index);
 void build_relocatable_word(symbol_node *list, char *name, int index);
 void build_external_word(symbol_node *list, char *name, int index);
 int reg_address(char *reg, int src);
 void encode_inst(line_t *pLINE, symbol_node **list);
 
-/**
+/*
  * Adds a new element to the symbol linked list.
  * The new node is added based on the symbol type detailed in the pLINE->parsed->type variable.
  * Handles already existing nodes in the list.

@@ -12,9 +12,7 @@
 static REGISTER r0, r1, r2, r3, r4, r5, r6, r7;
 */
 
-/*
- * ─── START HERE ─────────────────────────────────────────────────────────────────
- */
+/* Main function for the assembler */
 int main(int argc, char const *argv[])
 {
     int pass_return;
@@ -25,7 +23,7 @@ int main(int argc, char const *argv[])
     olist.next = NULL;
     olist.property = 0;
     olist.value = 0;
-
+    /* Checking if input files are provided */
     if (argc < 2)
     {
         fprintf(stderr, "No input files\nAssembling terminated.\n");
@@ -38,13 +36,13 @@ int main(int argc, char const *argv[])
         const char *filename = argv[argc];
         char cpyfile[40];
         strcpy(cpyfile, filename);
-
+        /* Validating filename extension */
         if (!validate_filename(filename))
         {
             fprintf(stderr, "The assembler accepts only .as files\n");
             continue;
         }
-
+        /* Opening input file for reading */
         fprintf(stdout, "Assembling file %s...\n", filename);
 
         fptr = fopen(filename, "r");
@@ -53,6 +51,7 @@ int main(int argc, char const *argv[])
             fprintf(stderr, "Failed to open file %s, %d\n", filename, errno);
             continue;
         }
+        /* First pass of assembly */
         pass_return = first_pass(fptr, &list);
         if (pass_return)
         {
@@ -61,6 +60,7 @@ int main(int argc, char const *argv[])
             continue;
         }
         ic = IC;
+        /* Second pass of assembly */
         pass_return = second_pass(fptr, &list, ic);
         IC = ic;
         if (pass_return)
@@ -70,7 +70,7 @@ int main(int argc, char const *argv[])
             continue;
         }
 
-        /**
+        /*
          * Creating and formatting output files
          * Creates 3 output files - object ,entry and external files.
          */

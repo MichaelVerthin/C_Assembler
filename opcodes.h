@@ -16,14 +16,13 @@
 #define ABSOLUTE 0
 #define EXTERNAL 1
 #define RELOCATABLE 2
-/******************/
 
-int check_operands(char *line, unsigned inst);
-int get_addmode(char *operand, unsigned code, int mode, int *abs, char *macro_name);
-int addmod_sz(int mode);
-int get_are(int mode);
+int check_operands(char *line, unsigned inst);                                       /* Checks the number of operands for a given instruction */
+int get_addmode(char *operand, unsigned code, int mode, int *abs, char *macro_name); /* Gets the addressing mode of an operand */
+int addmod_sz(int mode);                                                             /* Gets the size of an addressing mode */
+int get_are(int mode);                                                               /* Gets the A/R/E modifier for an addressing mode */
 
-/**
+/*
  * Enumeration of all the addressing modes available
  * on this assembler.
  * Using multiples of 2 to allow easy additions
@@ -45,7 +44,6 @@ enum ADDRESS_MODES
     ADDMODE_ALL = ADDMODE_123 | ADDMODE_0
 };
 
-extern const int opcodes[OPCODE_NUM][4];
-
+extern const int opcodes[OPCODE_NUM][4]; /* Array storing opcode properties */
 
 #endif

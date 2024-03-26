@@ -63,7 +63,8 @@
     "stdio.h": "c",
     "stdlib.h": "c",
     "string.h": "c",
-    "pass.h": "c"
+    "pass.h": "c",
+    "ctype.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 }
