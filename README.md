@@ -3,7 +3,6 @@
 This project presents a robust pseudo assembly language assembler, focusing on the translation component.<br />
 Developed for a C class course at the Open University of Israel, it forms the core translation engine within a comprehensive assembler software suite
 > [!TIP]
-> <strong>Run the Assembler:</strong><br />
 > 1. <strong>Build:</strong> Use `make` to create the assembler program (`myprog`).<br />
 > 2. <strong>Assemble:</strong> Run `./myprog` followed by your assembly file (e.g., `mycode.as`).
 
