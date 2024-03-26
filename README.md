@@ -21,7 +21,6 @@ This project presents a robust pseudo assembly language assembler, focusing on t
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Instruction Word Structure:}}$
 
-<div align="left">
 The target machine utilizes a 14-bit instruction word format for efficient encoding:
 ```
 +----------+--------+--------+-------------+-------+
@@ -34,4 +33,3 @@ The target machine utilizes a 14-bit instruction word format for efficient encod
 - <strong>Source Register (4-5 bits):</strong> Specifies the source register operand (if applicable to the instruction).
 - <strong>Opcode (6-9 bits):</strong> Identifies the specific operation to be performed (e.g., mov, cmp, add).
 - <strong>Not Used (10-13 bits):</strong> Reserved for future instruction set expansion.
-</div>
