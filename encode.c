@@ -125,3 +125,93 @@ int encode(enum PARSE parse, line_t *pLINE, symbol_node **list)
     }
     return ERR_FLAG;
 }
+int conv_addmod(int mode)
+{
+    switch (mode)
+    {
+    case ADDMODE_0:
+        return 0;
+    case ADDMODE_1:
+        return 1;
+    case ADDMODE_2:
+        return 2;
+    case ADDMODE_3:
+        return 3;
+    }
+    return ERROR;
+}
+
+int entry_encode(char *entry, line_t *pLINE, symbol_node **list)
+{
+    next_node(*&list, entry, IC + 100, SYMBOL_ENTRY);
+    return TRUE;
+}
+
+void build_absolute_word(symbol_node *list, char *name, int opvalue, int bSRC, int index)
+{
+    int value;
+    if (is_valid(opvalue) && !name)
+    {
+        instruction_arr[index].reg = (opvalue << 2) | ABSOLUTE;
+        return;
+    }
+    if (is_register(name) != ERROR)
+    {
+        if (bSRC)
+        {
+            /* SRC IS REGISTER */
+            instruction_arr[index].reg = reg_address(name, TRUE) | ABSOLUTE;
+            return;
+        }
+        /* DST IS REGISTER */
+        instruction_arr[index].reg = reg_address(name, FALSE) | ABSOLUTE;
+        return;
+    }
+    if ((search_list(list, name, &value, NULL) != ERROR))
+    {
+        instruction_arr[index].reg = value << 2;
+        return;
+    }
+    if ((value = is_num(name) != _12BIT_MIN))
+    {
+        instruction_arr[index].reg = value << 2;
+        return;
+    }
+    ERROR_MSG("Failed to create absolute word")
+    return;
+}
+void build_relocatable_word(symbol_node *list, char *name, int index)
+{
+    int value = -1, property = -1;
+    search_list(list, name, &value, &property);
+    if ((value != ERROR) && (property & ~(SYMBOL_EXTERNAL | SYMBOL_ENTRY)))
+    {
+        instruction_arr[index].reg = (value << 2) | RELOCATABLE;
+        return;
+    }
+    else
+        instruction_arr[index].reg = 0 | EXTERNAL; /* if not found create a default external refertence */
+    return;
+}
+
+void build_external_word(symbol_node *list, char *name, int index)
+{
+    int value;
+    if (search_list_property(list, name, &value, SYMBOL_EXTERNAL))
+    {
+        instruction_arr[index].reg = 0 | EXTERNAL;
+        return;
+    }
+    ERROR_MSG("Failed to find external symbol")
+    return;
+}
+
+int reg_address(char *reg, int src)
+{
+    int regnum = ERROR;
+    if ((regnum = is_register(reg)) == ERROR)
+        return ERROR;
+    if (src)
+        return (regnum << 5);
+    return (regnum << 2);
+}
