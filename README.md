@@ -19,7 +19,7 @@ This project presents a robust pseudo assembly language assembler, focusing on t
 - <strong>Memory:</strong> Comprises 4096 memory locations, each capable of storing 14-bit data.
 - <strong>Data Type Support:</strong> The assembler is designed to handle both ASCII characters and integer values. Real number processing is currently not supported.
 
-## $\color{rgb(255,127,39)}\large{\textsf{Instruction Word Structure:}}$
+## $\color{rgb(255,127,39)}\large{\textsf{Instruction Word Structure}}$
 
 The target machine utilizes a 14-bit instruction word format for efficient encoding:
 ```
@@ -33,3 +33,9 @@ The target machine utilizes a 14-bit instruction word format for efficient encod
 - <strong>Source Register (4-5 bits):</strong> Specifies the source register operand (if applicable to the instruction).
 - <strong>Opcode (6-9 bits):</strong> Identifies the specific operation to be performed (e.g., mov, cmp, add).
 - <strong>Not Used (10-13 bits):</strong> Reserved for future instruction set expansion.
+
+## $\color{rgb(255,127,39)}\large{\textsf{Compiler Compatibility}}$
+
+<div align="left">
+The project is designed to function seamlessly with an ANSI standard C compiler, ensuring broad compatibility with modern development environments
+</div>
