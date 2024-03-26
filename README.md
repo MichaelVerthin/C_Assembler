@@ -22,12 +22,12 @@ This project presents a robust pseudo assembly language assembler, focusing on t
 ## $\color{rgb(255,127,39)}\large{\textsf{Instruction Word Structure:}}$
 
 The target machine utilizes a 14-bit instruction word format for efficient encoding:
-```
+
 +----------+--------+--------+-------------+-------+
 |  10-13   |  6-9   |  4-5   |     2-3     |  0-1  |
 | Not Used | Opcode | source | destination | A.R.E |
 +----------+--------+--------+-------------+-------+
-```
+
 - <strong>Addressing Mode Extension (A.R.E) (0-1 bit):</strong> Currently unused, potentially for future addressing mode support.
 - <strong>Destination Register (2-3 bits):</strong> Specifies the destination register operand (if applicable to the instruction).
 - <strong>Source Register (4-5 bits):</strong> Specifies the source register operand (if applicable to the instruction).
