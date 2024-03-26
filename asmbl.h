@@ -44,7 +44,7 @@
 #define PRN 12
 #define JSR 13
 #define RTS 14
-#define STOP 15
+#define HLT 15
 /**********************/
 
 

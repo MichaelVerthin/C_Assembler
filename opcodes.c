@@ -24,7 +24,7 @@ opcodes[OPCODE_NUM][4] =
     {PRN, ADDMODE_NONE, ADDMODE_ALL, 1},    /* index 12 */
     {JSR, ADDMODE_NONE, ADDMODE_13, 1},     /* index 13 */
     {RTS, ADDMODE_NONE, ADDMODE_NONE, 0},   /* index 14 */
-    {STOP, ADDMODE_NONE, ADDMODE_NONE, 0}   /* index 15 */
+    {HLT, ADDMODE_NONE, ADDMODE_NONE, 0}   /* index 15 */
 };
 
 
@@ -58,7 +58,7 @@ num_operands(char *line)
 {
     int ops = 1;
     const char *c = line;
-    if(strcmp_hash(line, "stop") || strcmp_hash(line, "rts"))
+    if(strcmp_hash(line, "hlt") || strcmp_hash(line, "rts"))
         return 0;
     while(*c)
     {

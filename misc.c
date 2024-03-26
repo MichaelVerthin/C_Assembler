@@ -96,7 +96,7 @@ is_opcode(char *s)
         "mov", "cmp", "add", "sub",
         "not", "clr", "lea", "inc",
         "dec", "jmp", "bne", "red",
-        "prn", "jsr", "rts", "stop"
+        "prn", "jsr", "rts", "hlt"
     };
     
     for(i = 0; i < OPCODE_NUM; i++)
@@ -161,4 +161,5 @@ insert_protected(char *str)
 
     return 0;
 }
-*/
+*/
+
