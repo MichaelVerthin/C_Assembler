@@ -17,11 +17,11 @@ CFLAGS = -g -Wall -ansi -pedantic
 
 # Rule to build the executable
 $(TARGET): $(OBJ)
-    $(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 # Phony target for clean
 .PHONY: clean
 
 # Clean rule
 clean:
-    rm -f $(OBJ) $(TARGET)
+	rm -f $(OBJ) $(TARGET)

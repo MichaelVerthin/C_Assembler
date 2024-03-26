@@ -1,56 +1,102 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
 #include "asmbl.h"
 #include "pass.h"
 #include "misc.h"
+#include "files.h"
+#include "globals.h"
 
-/*
+/* 
 static REGISTER r0, r1, r2, r3, r4, r5, r6, r7;
-static int IC = 0;
-static int DC = 0;
 */
 
-int main(int argc, char const *argv[])
+/*
+ * ─── START HERE ─────────────────────────────────────────────────────────────────
+ */
+int
+main(int argc, char const *argv[])
 {
     int pass_return;
-    FILE *fptr; /* pointer to file object */
+    FILE *fptr, *pout, *pext, *pent;     /* pointer to file object */
+    symbol_node olist;
+    symbol_node *list = &olist;
+    olist.name = NULL;
+    olist.next = NULL;
+    olist.property = 0;
+    olist.value = 0;
+
+
     if (argc < 2)
     {
         fprintf(stderr, "No input files\nAssembling terminated.\n");
         return NO_FILE;
     }
-    while (--argc)
+
+
+    while(--argc)
     {
-        fprintf(stdout, "Assembling file %s...\n", argv[argc]);
-        fptr = fopen(argv[argc], "r");
-        if (!fptr)
+        int ic;
+        const char *filename = argv[argc];
+        char cpyfile[40];
+        strcpy(cpyfile, filename);
+
+
+        if(!validate_filename(filename))
         {
-            fprintf(stderr, "Failed to open file %s, %d\n", argv[argc], errno);
+            fprintf(stderr, "The assembler accepts only .as files\n");
             continue;
         }
-        pass_return = first_pass(fptr);
+
+        fprintf(stdout, "Assembling file %s...\n", filename);
+
+        fptr = fopen(filename, "r");
+        if(!fptr)
+        {
+            fprintf(stderr, "Failed to open file %s, %d\n", filename, errno);
+            continue;
+        }
+        pass_return = first_pass(fptr, &list);
         if (pass_return)
         {
-            fprintf(stderr, "First pass failed! (%s)\nTerminating... %d\n", argv[argc], 1);
+            fprintf(stderr, "First pass failed! (%s)\nTerminating... %d\n",filename, 1);
             fclose(fptr);
             continue;
         }
-        pass_return = second_pass(fptr);
+        ic = IC;
+        pass_return = second_pass(fptr, &list, ic);
+        IC = ic;
         if (pass_return)
         {
-            fprintf(stderr, "Second pass failed! (%s)\nTerminating... %d\n", argv[argc], 1);
+            fprintf(stderr, "Second pass failed! (%s)\nTerminating... %d\n",filename, 1);
             fclose(fptr);
             continue;
         }
+
+
+        /**
+         * Creating and formatting output files
+         * Creates 3 output files - object ,entry and external files.
+         */
+        pout = create_ext(cpyfile, ".ob");
+        pent = create_ext(cpyfile, ".ent");
+        pext = create_ext(cpyfile, ".ext");
+        strtok(cpyfile, ".");
+        if(pout && pent && pext)
+        {
+            fout(pout);
+            fout_entext(cpyfile, pext, pent);
+        }
+        else
+        {
+            fprintf(stderr, "Failed to create output files - object, entry or external\n");
+            return EXIT_FAILURE;
+        }
+    
+        
         fclose(fptr);
-        fprintf(stdout, "Fishished assembling file %s\n", argv[argc]);
+        fprintf(stdout, "Fishished assembling file %s\n", filename);
     }
-    /*pass_return = insert_protected("ABC");
-    if (pass_return)
-        printf("%d - BAD\n", pass_return);
-    else
-        printf("%d - GOOD\n", pass_return);
-    printf("Protected element is %ld\n.", protected[0]);*/
     return EXIT_SUCCESS;
 }
