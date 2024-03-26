@@ -8,14 +8,14 @@ This project presents a robust pseudo assembly language assembler, focusing on t
 
 - <strong>Central Processing Unit (CPU):</strong> Features 8 general-purpose registers (r0-r7) with a word size of 14 bits.
 - <strong>Instruction Set Architecture (ISA):</strong> Supports 16 distinct opcodes encompassing fundamental operations like:
-        - move (mov)
-        - compare (cmp)
--   arithmetic operations (add, sub)
--   logical operations (not, clr)
--   memory access (lea)
--   control flow (jmp, bne)
--   subroutine calls (jsr, rts)
--   and program termination (hlt).
+  - move (mov)
+  - compare (cmp)
+  - arithmetic operations (add, sub)
+  - logical operations (not, clr)
+  - memory access (lea)
+  - control flow (jmp, bne)
+  - subroutine calls (jsr, rts)
+  - and program termination (hlt).
 - <strong>Memory:</strong> Comprises 4096 memory locations, each capable of storing 14-bit data.
 - <strong>Data Type Support:</strong> The assembler is designed to handle both ASCII characters and integer values. Real number processing is currently not supported.
 
