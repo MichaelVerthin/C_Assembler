@@ -1,7 +1,10 @@
 ## $\color{rgb(255,127,39)}\large{\textsf{ANCI C Assembly Compliler}}$
 
-This project presents a robust pseudo assembly language assembler, focusing on the translation component.
+This project presents a robust pseudo assembly language assembler, focusing on the translation component.<br />
 Developed for a C class course at the Open University of Israel, it forms the core translation engine within a comprehensive assembler software suite
+> [!TIP]
+> In order to run the assembler, first use the 'make' command, then
+  > test
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Target Machine Architecture Overview}}$
 
