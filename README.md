@@ -7,8 +7,8 @@ This project presents a robust pseudo assembly language assembler, focusing on t
 ## $\color{rgb(255,127,39)}\large{\textsf{Target Machine Architecture Overview}}$
 
 <div align="left">
-• <h3>**Central Processing Unit (CPU):** Features 8 general-purpose registers (r0-r7) with a word size of 14 bits.</h3>
-<h3>**• Instruction Set Architecture (ISA):** Supports 16 distinct opcodes encompassing fundamental operations like move (mov), compare (cmp), arithmetic operations (add, sub), logical operations (not, clr), memory access (lea), control flow (jmp, bne), subroutine calls (jsr, rts), and program termination (stop).</h3>
+<h3>• **Central Processing Unit (CPU):** Features 8 general-purpose registers (r0-r7) with a word size of 14 bits.</h3>
+<h3>• <strong>Instruction Set Architecture (ISA):</strong> Supports 16 distinct opcodes encompassing fundamental operations like move (mov), compare (cmp), arithmetic operations (add, sub), logical operations (not, clr), memory access (lea), control flow (jmp, bne), subroutine calls (jsr, rts), and program termination (stop).</h3>
 <h3>**• Memory:** Comprises 4096 memory locations, each capable of storing 14-bit data.</h3>
 <h3>**• Data Type Support:** The assembler is designed to handle both ASCII characters and integer values. Real number processing is currently not supported.</h3>
 </div>
