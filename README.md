@@ -21,8 +21,8 @@ Developed for a C class course at the Open University of Israel, it forms the co
 - <strong>Memory:</strong> Comprises 4096 memory locations, each capable of storing 14-bit data.
 - <strong>Data Type Support:</strong> The assembler is designed to handle both ASCII characters and integer values. Real number processing is currently not supported.
 > [!WARNING]
-> <strong>Register</strong> usage outside the valid range (r0-r7) will cause errors.
-
+> <strong>Invalid Register Usage:</strong> Register usage outside the valid range (r0-r7) will cause errors.<br />
+> <strong>Data Type Limitations:</strong> The assembler currently only supports integer and ASCII characters. Real numbers will cause errors
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Instruction Word Structure}}$
 
