@@ -23,13 +23,15 @@ This project presents a robust pseudo assembly language assembler, focusing on t
 
 <div align="left">
 The target machine utilizes a 14-bit instruction word format for efficient encoding:
-+------------+------------+------------+---------------+-------+
-|    10-13   |     6-9    |     4-5    |      2-3      |  0-1  |
-|  Not Used  |   Opcode   |   source   |  destination  | A.R.E |
-+------------+------------+------------+---------------+-------+
-**• Not Used (10-13 bits): Reserved for future instruction set expansion.
-**• Opcode (6-9 bits): Identifies the specific operation to be performed (e.g., mov, cmp, add).
-**• Source Register (4-5 bits): Specifies the source register operand (if applicable to the instruction).
-**• Destination Register (2-3 bits): Specifies the destination register operand (if applicable to the instruction).
-**• Addressing Mode Extension (A.R.E) (0-1 bit): Currently unused, potentially for future addressing mode support.
+```
++----------+--------+--------+-------------+-------+
+|  10-13   |  6-9   |  4-5   |     2-3     |  0-1  |
+| Not Used | Opcode | source | destination | A.R.E |
++----------+--------+--------+-------------+-------+
+```
+- <strong>Addressing Mode Extension (A.R.E) (0-1 bit):</strong> Currently unused, potentially for future addressing mode support.
+- <strong>Destination Register (2-3 bits):</strong> Specifies the destination register operand (if applicable to the instruction).
+- <strong>Source Register (4-5 bits):</strong> Specifies the source register operand (if applicable to the instruction).
+- <strong>Opcode (6-9 bits):</strong> Identifies the specific operation to be performed (e.g., mov, cmp, add).
+- <strong>Not Used (10-13 bits):</strong> Reserved for future instruction set expansion.
 </div>
