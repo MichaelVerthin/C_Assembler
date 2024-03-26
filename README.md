@@ -48,5 +48,6 @@ The project is designed to function seamlessly with an ANSI standard C compiler,
 </div>
 
 <br />
+
 > [!NOTE]
 > If you encounter any compiler-related issues, double-check that you're using an ANSI standard C compiler
