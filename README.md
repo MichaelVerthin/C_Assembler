@@ -7,19 +7,19 @@ This project presents a robust pseudo assembly language assembler, focusing on t
 ## $\color{rgb(255,127,39)}\large{\textsf{Target Machine Architecture Overview}}$
 
 <div align="left">
-• **Central Processing Unit (CPU):** Features 8 general-purpose registers (r0-r7) with a word size of 14 bits.
-• <strong>Instruction Set Architecture (ISA):</strong> Supports 16 distinct opcodes encompassing fundamental operations like move (mov), compare (cmp), arithmetic operations (add, sub), logical operations (not, clr), memory access (lea), control flow (jmp, bne), subroutine calls (jsr, rts), and program termination (stop).
-**• Memory:** Comprises 4096 memory locations, each capable of storing 14-bit data.
-**• Data Type Support:** The assembler is designed to handle both ASCII characters and integer values. Real number processing is currently not supported.
+*<strong>Central Processing Unit (CPU):</strong> Features 8 general-purpose registers (r0-r7) with a word size of 14 bits.
+*<strong>Instruction Set Architecture (ISA):</strong> Supports 16 distinct opcodes encompassing fundamental operations like\n move (mov), compare (cmp), arithmetic operations (add, sub), logical operations (not, clr), memory access (lea), control flow (jmp, bne), subroutine calls (jsr, rts), and program termination (stop).
+*<strong>Memory:</strong> Comprises 4096 memory locations, each capable of storing 14-bit data.
+*<strong>Data Type Support:</strong> The assembler is designed to handle both ASCII characters and integer values. Real number processing is currently not supported.
 </div>
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Instruction Word Structure:}}$
 
 <div align="left">
-<h3>The target machine utilizes a 14-bit instruction word format for efficient encoding:
-+------------+------------+------------+---------------+-------+<br>
-|    10-13   |     6-9    |     4-5    |      2-3      |  0-1  |<br>
-|  Not Used  |   Opcode   |   source   |  destination  | A.R.E |<br>
+The target machine utilizes a 14-bit instruction word format for efficient encoding:
++------------+------------+------------+---------------+-------+
+|    10-13   |     6-9    |     4-5    |      2-3      |  0-1  |
+|  Not Used  |   Opcode   |   source   |  destination  | A.R.E |
 +------------+------------+------------+---------------+-------+
 **• Not Used (10-13 bits): Reserved for future instruction set expansion.
 **• Opcode (6-9 bits): Identifies the specific operation to be performed (e.g., mov, cmp, add).
