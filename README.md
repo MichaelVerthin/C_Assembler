@@ -46,6 +46,7 @@ The target machine utilizes a 14-bit instruction word format for efficient encod
 <div align="left">
 The project is designed to function seamlessly with an ANSI standard C compiler, ensuring broad compatibility with modern development environments
 </div>
+
 <br />
 > [!NOTE]
 > If you encounter any compiler-related issues, double-check that you're using an ANSI standard C compiler
