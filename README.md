@@ -20,6 +20,7 @@ Developed for a C class course at the Open University of Israel, it forms the co
   - and program termination (hlt).
 - <strong>Memory:</strong> Comprises 4096 memory locations, each capable of storing 14-bit data.
 - <strong>Data Type Support:</strong> The assembler is designed to handle both ASCII characters and integer values. Real number processing is currently not supported.
+
 ![vmplayer_NoAvAyVSmf](https://github.com/MichaelVerthin/C_Assembler/assets/86958340/26494f88-68b2-4042-b69c-7894116e81f5)
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Instruction Word Structure}}$
