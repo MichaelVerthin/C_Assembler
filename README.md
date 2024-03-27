@@ -5,6 +5,7 @@ Developed for a C class course at the Open University of Israel, it forms the co
 > [!TIP]
 > 1. <strong>Build:</strong> Use `make` to create the assembler program (`myprog`)<br />
 > 2. <strong>Assemble:</strong> Run `./myprog` followed by your assembly file (e.g., `mycode.as`)
+
 ![vmplayer_NoAvAyVSmf](https://github.com/MichaelVerthin/C_Assembler/assets/86958340/26494f88-68b2-4042-b69c-7894116e81f5)
 
 ## $\color{rgb(255,127,39)}\large{\textsf{Target Machine Architecture Overview}}$
