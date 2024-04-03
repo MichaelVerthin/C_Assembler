@@ -131,7 +131,7 @@ void fout_entext(char *filename, FILE *pext, FILE *pent)
     for (i = 0; i < IC; i++)
     {
         if (instruction_arr[i].type == SYMBOL_EXTERNAL)
-            fprintf(pext, "%s\t%0ld\n", instruction_arr[i].name, i + 100 + 1);
+            fprintf(pext, "%s\t%0ld\n", instruction_arr[i].name, (long)(i + 100 + 1));
     }
     for (i = 0; i < 2; i++)
     {
